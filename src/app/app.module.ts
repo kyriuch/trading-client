@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './modules/material.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FormsModule } from '@angular/forms';
 
 const Components = [
   ToolbarComponent,
@@ -23,6 +25,8 @@ const Components = [
     BrowserModule,
     MaterialModule,
     LayoutModule,
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

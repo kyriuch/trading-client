@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BreakpointState, BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,15 +9,11 @@ import { BreakpointState, BreakpointObserver, Breakpoints } from '@angular/cdk/l
 })
 export class ToolbarComponent implements OnInit {
 
-  isHandset: boolean;
+  smallScreen: boolean;
 
   constructor(private breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(Breakpoints.Handset).subscribe((state: BreakpointState) => {
-      if (state.matches) {
-        this.isHandset = true;
-      } else {
-        this.isHandset = false;
-      }
+    breakpointObserver.observe('(max-width: 768px)').subscribe((state: BreakpointState) => {
+        this.smallScreen = state.matches;
     });
   }
 
