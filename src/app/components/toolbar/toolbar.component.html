@@ -1,8 +1,17 @@
 <mat-toolbar color="primary" class="shadow">
-  <mat-toolbar-row>
+  <mat-toolbar-row *ngIf="!isHandset">
     <span>Platforma aukcyjna</span>
     <span class="spacer"></span>
-    <mat-icon>favorite</mat-icon>
-    <mat-icon>delete</mat-icon>
+    <button mat-button>
+      <mat-icon class="offset">account_circle</mat-icon>
+      Zaloguj się
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="isHandset">
+    <span>Platforma aukcyjna</span>
+    <span class="spacer"></span>
+    <button mat-button>
+      <mat-icon>account_circle</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

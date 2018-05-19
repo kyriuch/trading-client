@@ -1,0 +1,13 @@
+.spacer {
+    flex: auto 1 1;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px -10px 5px 16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px -10px 5px 16px rgba(0,0,0,0.75);
+    box-shadow: 0px -10px 5px 16px rgba(0,0,0,0.75);
+}
+
+.offset {
+    margin-right: 10px;
+}

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatIconModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 const dependencies = [
+  BrowserAnimationsModule,
   MatToolbarModule,
   MatIconModule,
-  BrowserAnimationsModule,
+  MatButtonModule,
 ];
 
 @NgModule({
