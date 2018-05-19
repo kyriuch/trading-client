@@ -4,18 +4,24 @@ import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComponentsModule } from './modules/components.module';
 import { MaterialModule } from './modules/material.module';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+
+const Components = [
+  ToolbarComponent,
+  LoginPageComponent
+];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    Components
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     MaterialModule,
-    AppRoutingModule,
-    ComponentsModule,
     LayoutModule,
   ],
   providers: [],
