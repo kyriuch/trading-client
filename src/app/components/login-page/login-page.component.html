@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+  <mat-card class="loginCard" style="min-height: 400px" [ngStyle]="{'min-width': smallScreen ? '300px' : '450px'}">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+      <div class="titleContainer">
+        <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="center center" color="primary">
+          Zaloguj się
+        </mat-toolbar>
+      </div>
+      <form fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="45px">
+        <mat-form-field style="min-width: 80%;">
+          <input matInput placeholder="example@email.domain">
+          <mat-hint>Email address</mat-hint>
+        </mat-form-field>
+        <mat-form-field style="min-width: 80%;">
+          <input matInput type="password" placeholder="eX4mpl3p4ssw0rd">
+          <mat-hint>Password</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="primary" style="min-width: 80%">
+          Zaloguj
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</div>
