@@ -3,6 +3,10 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { matchOtherValidator } from '../../validators/password-validator';
 import { trigger, style, state, transition, animate, keyframes, query, stagger } from '@angular/animations';
+import { AuthService } from '../../services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { AlertComponent } from '../alert/alert.component';
 
 
 @Component({
@@ -37,7 +41,8 @@ export class RegisterPageComponent implements OnInit {
   repeatPasswordState: boolean;
   steamIdState: boolean;
 
-  constructor(private breakpointObserver: BreakpointObserver, private fb: FormBuilder) {
+  constructor(private breakpointObserver: BreakpointObserver, private fb: FormBuilder,
+    private authService: AuthService, private dialog: MatDialog) {
     this.createForm();
   }
 
@@ -121,6 +126,27 @@ export class RegisterPageComponent implements OnInit {
       if (!this.registrationForm.get('steamId').valid) {
         this.steamIdState = !this.steamIdState;
       }
+    } else {
+      this.authService.registerUser(
+        {
+          email: this.registrationForm.get('email').value,
+          password: this.registrationForm.get('password').value,
+          steamId: this.registrationForm.get('steamId').value
+        }
+      ).subscribe((data) => {
+        console.log(data.token);
+        this.authService.getRoles(data).subscribe((roles) => {
+          console.log(roles);
+        });
+      }, (err: HttpErrorResponse) => {
+        const dialogRef = this.dialog.open(AlertComponent,
+          {
+            width: '400px',
+            height: '200px',
+            data: err.error,
+            role: 'alertdialog'
+          });
+      });
     }
   }
 }

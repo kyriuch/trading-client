@@ -1,6 +1,5 @@
-export class UserRegistration {
+export interface UserRegister {
     email: string;
     password: string;
-    repeatPassword: string;
     steamId: string;
 }

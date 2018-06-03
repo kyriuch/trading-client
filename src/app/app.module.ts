@@ -10,6 +10,10 @@ import { MaterialModule } from './modules/material.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { ApiService } from './services/api.service';
+import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './components/alert/alert.component';
 
 const Components = [
   ToolbarComponent,
@@ -20,7 +24,8 @@ const Components = [
 @NgModule({
   declarations: [
     AppComponent,
-    Components
+    Components,
+    AlertComponent
   ],
   imports: [
     AppRoutingModule,
@@ -29,9 +34,11 @@ const Components = [
     LayoutModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ApiService, AuthService],
+  bootstrap: [AppComponent],
+  entryComponents: [AlertComponent]
 })
 export class AppModule { }
