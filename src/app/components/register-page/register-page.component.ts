@@ -134,10 +134,7 @@ export class RegisterPageComponent implements OnInit {
           steamId: this.registrationForm.get('steamId').value
         }
       ).subscribe((data) => {
-        console.log(data.token);
-        this.authService.getRoles(data).subscribe((roles) => {
-          console.log(roles);
-        });
+
       }, (err: HttpErrorResponse) => {
         const dialogRef = this.dialog.open(AlertComponent,
           {

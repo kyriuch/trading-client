@@ -27,7 +27,7 @@ export class AuthService {
         apiEndpoint: 'authentication/register',
         requestBody: user
       }
-    ).;
+    );
   }
 
   getRoles(authUser: AuthUser): Observable<any> {

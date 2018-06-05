@@ -24,7 +24,7 @@ export class ApiService {
     return this.httpClient.post<T>(this.apiUrl + apiModel.apiEndpoint,
       apiModel.requestBody,
       {
-        headers: httpHeaders;
+        headers: httpHeaders
       });
   }
 
