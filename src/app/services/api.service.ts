@@ -1,33 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiPostModel, ApiAuthorizedGetModel } from '../models/api-models';
+import { ApiPostModel, ApiGetModel } from '../models/api-models';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  apiUrl: string;
+  apiUrl = 'https://localhost:44391/api/';
 
-  constructor(private httpClient: HttpClient) {
-    this.apiUrl = 'https://localhost:44391/api/';
+  constructor(private httpClient: HttpClient, private auth: AuthService) {
   }
 
-  post<T>(apiModel: ApiPostModel): Observable<T> {
+  post<T>(apiModel: ApiPostModel, shouldAttachToken = false): Observable<T> {
+    let httpHeaders = this.generateHeaders();
+
+    if (shouldAttachToken) {
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
+    }
+
     return this.httpClient.post<T>(this.apiUrl + apiModel.apiEndpoint,
       apiModel.requestBody,
       {
-        headers: this.generateHeaders()
+        headers: httpHeaders;
       });
   }
 
-  get(apiModel: ApiAuthorizedGetModel): Observable<any> {
+  get<T>(apiModel: ApiGetModel, shouldAttachToken = false): Observable<T> {
     let httpHeaders = this.generateHeaders();
-    httpHeaders = httpHeaders.append('Authorization', `Bearer ${apiModel.token}`);
-    console.log(httpHeaders.getAll('Authorization'));
 
-    return this.httpClient.get(this.apiUrl + apiModel.apiEndpoint, {
+    if (shouldAttachToken) {
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
+    }
+
+    return this.httpClient.get<T>(this.apiUrl + apiModel.apiEndpoint, {
       headers: httpHeaders
     });
   }

@@ -5,7 +5,6 @@ export interface ApiPostModel {
     requestBody: any;
 }
 
-export interface ApiAuthorizedGetModel {
+export interface ApiGetModel {
     apiEndpoint: string;
-    token: string;
 }
