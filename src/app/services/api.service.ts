@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiPostModel, ApiGetModel } from '../models/api-models';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +10,14 @@ export class ApiService {
 
   apiUrl = 'https://localhost:44391/api/';
 
-  constructor(private httpClient: HttpClient, private auth: AuthService) {
+  constructor(private httpClient: HttpClient) {
   }
 
-  post<T>(apiModel: ApiPostModel, shouldAttachToken = false): Observable<T> {
+  post<T>(apiModel: ApiPostModel, shouldAttachToken = false, token = null): Observable<T> {
     let httpHeaders = this.generateHeaders();
 
     if (shouldAttachToken) {
-      httpHeaders = httpHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
     }
 
     return this.httpClient.post<T>(this.apiUrl + apiModel.apiEndpoint,
@@ -28,11 +27,11 @@ export class ApiService {
       });
   }
 
-  get<T>(apiModel: ApiGetModel, shouldAttachToken = false): Observable<T> {
+  get<T>(apiModel: ApiGetModel, shouldAttachToken = false, token = null): Observable<T> {
     let httpHeaders = this.generateHeaders();
 
     if (shouldAttachToken) {
-      httpHeaders = httpHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
     }
 
     return this.httpClient.get<T>(this.apiUrl + apiModel.apiEndpoint, {

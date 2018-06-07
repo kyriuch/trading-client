@@ -6,38 +6,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './modules/material.module';
-import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { ApiService } from './services/api.service';
-import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertComponent } from './components/alert/alert.component';
-
-const Components = [
-  ToolbarComponent,
-  LoginPageComponent,
-  RegisterPageComponent
-];
+import { ProfileModule } from './modules/profile/profile.module';
+import { SharedModule } from './modules/shared/shared.module';
+import { AuthService } from './modules/profile/services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Components,
-    AlertComponent
+    AlertComponent,
+    ToolbarComponent
   ],
   imports: [
-    AppRoutingModule,
-    BrowserModule,
-    MaterialModule,
-    LayoutModule,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ProfileModule,
+    SharedModule
   ],
-  providers: [ApiService, AuthService],
+  providers: [ApiService],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent]
 })

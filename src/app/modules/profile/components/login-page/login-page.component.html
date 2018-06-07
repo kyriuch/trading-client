@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+  <mat-card class="loginCard" style="min-height: 400px;" [ngStyle]="{
+    'min-width': smallScreen ? '300px' : '450px',
+    'margin-top': smallScreen ? '200px' : '0px',
+    'margin-bottom': smallScreen ? '30px' : '0px'
+  }">
+    <div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+      <div>
+        <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="center center" color="primary">
+          Zaloguj się
+        </mat-toolbar>
+      </div>
+      <form [formGroup]="loginForm" (submit)="onSubmit()" fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="35px">
+        <mat-form-field style="min-width: 80%;" [@shake]="emailState">
+          <input matInput placeholder="Email" type="email" formControlName="email">
+          <mat-error *ngIf="loginForm.get('email').invalid">
+            {{ emailError() }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field style="min-width: 80%;" [@shake]="passwordState">
+          <input matInput type="password" placeholder="Hasło" formControlName="password">
+          <mat-error *ngIf="loginForm.get('password').invalid">
+            {{ passwordError() }}
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" style="min-width: 80%;">
+          Zaloguj
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</div>

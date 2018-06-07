@@ -6,7 +6,7 @@ import { trigger, style, state, transition, animate, keyframes, query, stagger }
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-import { AlertComponent } from '../alert/alert.component';
+import { AlertComponent } from '../../../../components/alert/alert.component';
 
 
 @Component({
@@ -134,7 +134,7 @@ export class RegisterPageComponent implements OnInit {
           steamId: this.registrationForm.get('steamId').value
         }
       ).subscribe((data) => {
-
+        this.authService.authenticate(data);
       }, (err: HttpErrorResponse) => {
         const dialogRef = this.dialog.open(AlertComponent,
           {
