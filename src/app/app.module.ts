@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +24,14 @@ import { AuthService } from './modules/profile/services/auth.service';
     ProfileModule,
     SharedModule
   ],
-  providers: [ApiService],
+  providers: [ApiService,
+    AuthService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (auth: AuthService) => function () { return auth.init(); },
+      deps: [AuthService],
+      multi: true
+    }],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent]
 })

@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { MatDialog, MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertComponent } from '../../../../components/alert/alert.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,15 +39,19 @@ export class LoginPageComponent implements OnInit {
   emailState: boolean;
   passwordState: boolean;
 
+  loading: boolean;
+
   constructor(private breakpointObserver: BreakpointObserver, private fb: FormBuilder,
-    private authService: AuthService, private dialog: MatDialog) {
-    this.createForm();
+    private authService: AuthService, private dialog: MatDialog, private router: Router) {
   }
 
   ngOnInit() {
     this.breakpointObserver.observe('(max-width: 768px)').subscribe((breakpointState: BreakpointState) => {
       this.smallScreen = breakpointState.matches;
     });
+
+    this.createForm();
+    this.loading = false;
   }
 
   createForm() {
@@ -88,6 +93,8 @@ export class LoginPageComponent implements OnInit {
         this.passwordState = !this.passwordState;
       }
     } else {
+      this.loading = true;
+
       this.authService.login(
         {
           email: this.loginForm.get('email').value,
@@ -95,6 +102,8 @@ export class LoginPageComponent implements OnInit {
         }
       ).subscribe((data) => {
         this.authService.authenticate(data);
+        this.router.navigateByUrl('');
+        this.loading = false;
       }, (err: HttpErrorResponse) => {
         const dialogRef = this.dialog.open(AlertComponent,
           {
@@ -103,6 +112,8 @@ export class LoginPageComponent implements OnInit {
             data: err.error,
             role: 'alertdialog'
           });
+
+        this.loading = false;
       });
     }
   }

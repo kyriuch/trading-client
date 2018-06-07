@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 import { AlertComponent } from '../../../../components/alert/alert.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -41,15 +42,20 @@ export class RegisterPageComponent implements OnInit {
   repeatPasswordState: boolean;
   steamIdState: boolean;
 
+  loading: boolean;
+
   constructor(private breakpointObserver: BreakpointObserver, private fb: FormBuilder,
-    private authService: AuthService, private dialog: MatDialog) {
-    this.createForm();
+    private authService: AuthService, private dialog: MatDialog, private router: Router) {
+
   }
 
   ngOnInit() {
     this.breakpointObserver.observe('(max-width: 768px)').subscribe((breakpointState: BreakpointState) => {
       this.smallScreen = breakpointState.matches;
     });
+
+    this.createForm();
+    this.loading = false;
   }
 
   createForm() {
@@ -127,6 +133,7 @@ export class RegisterPageComponent implements OnInit {
         this.steamIdState = !this.steamIdState;
       }
     } else {
+      this.loading = true;
       this.authService.registerUser(
         {
           email: this.registrationForm.get('email').value,
@@ -135,6 +142,8 @@ export class RegisterPageComponent implements OnInit {
         }
       ).subscribe((data) => {
         this.authService.authenticate(data);
+        this.router.navigateByUrl('');
+        this.loading = false;
       }, (err: HttpErrorResponse) => {
         const dialogRef = this.dialog.open(AlertComponent,
           {
@@ -143,6 +152,8 @@ export class RegisterPageComponent implements OnInit {
             data: err.error,
             role: 'alertdialog'
           });
+
+        this.loading = false;
       });
     }
   }

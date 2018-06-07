@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatToolbarModule, MatIconModule, MatButtonModule, MatCardModule, MatInputModule,
-  MatChipsModule, MatDialogModule
+  MatChipsModule, MatDialogModule, MatProgressSpinnerModule
 } from '@angular/material';
 
 const dependencies = [
@@ -13,7 +13,8 @@ const dependencies = [
   MatCardModule,
   MatInputModule,
   MatChipsModule,
-  MatDialogModule
+  MatDialogModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

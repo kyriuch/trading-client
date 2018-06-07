@@ -84,6 +84,7 @@ export class AuthService {
         }
       }
     ).subscribe((data) => {
+      console.log(data);
       this.authenticate(data);
     }, (err: HttpErrorResponse) => {
       console.log(err.message);
