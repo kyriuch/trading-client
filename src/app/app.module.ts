@@ -13,6 +13,9 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthService } from './modules/profile/services/auth.service';
+import { AdminGuardService } from './services/admin-guard.service';
+import { GuestGuardService } from './services/guest-guard.service';
+import { UserGuardService } from './services/user-guard.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { AuthService } from './modules/profile/services/auth.service';
       useFactory: (auth: AuthService) => function () { return auth.init(); },
       deps: [AuthService],
       multi: true
-    }],
+    },
+    AdminGuardService,
+    GuestGuardService,
+    UserGuardService],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent]
 })
