@@ -6,5 +6,9 @@
       <mat-icon>account_circle</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Zaloguj się</span>
     </button>
+    <button mat-button routerLink="/adminPanel" *ngIf="isAdmin">
+      <mat-icon>dashboard</mat-icon>
+      <span class="mat-button" *ngIf="!smallScreen">Panel administracyjny</span>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -17,12 +17,12 @@ export class AuthService {
   private token: string;
 
   constructor(private apiService: ApiService) {
-
+    this.isUser = new BehaviorSubject<boolean>(false);
+    this.isAdmin = new BehaviorSubject<boolean>(false);
   }
 
   init(): void {
-    this.isUser = new BehaviorSubject<boolean>(false);
-    this.isAdmin = new BehaviorSubject<boolean>(false);
+    console.log('sobie testne');
     const currentToken = window.localStorage.getItem(this.tokenKey);
 
     if (currentToken !== null) {

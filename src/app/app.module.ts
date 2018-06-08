@@ -26,7 +26,7 @@ import { TradingModule } from './modules/trading/trading.module';
     SharedModule,
     TradingModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, AuthService],
   bootstrap: [AppComponent],
   entryComponents: [AlertComponent]
 })
