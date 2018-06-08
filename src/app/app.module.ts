@@ -13,18 +13,18 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthService } from './modules/profile/services/auth.service';
-import { OffersListComponent } from './modules/trading/components/offers-list.component';
+import { TradingModule } from './modules/trading/trading.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertComponent,
-    ToolbarComponent,
-    OffersListComponent
+    ToolbarComponent
   ],
   imports: [
     ProfileModule,
-    SharedModule
+    SharedModule,
+    TradingModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

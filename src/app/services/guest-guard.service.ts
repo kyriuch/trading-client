@@ -6,12 +6,11 @@ import { AuthService } from '../modules/profile/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuardService implements CanActivate {
-
+export class GuestGuardService implements CanActivate {
 
   constructor(private auth: AuthService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    return this.auth.isUser.value;
+    return (!this.auth.isAdmin.value && !this.auth.isUser.value);
   }
 }
