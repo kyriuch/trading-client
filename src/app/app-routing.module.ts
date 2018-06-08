@@ -5,6 +5,7 @@ import { RegisterPageComponent } from './modules/profile/components/register-pag
 import { AdminPanelComponent } from './modules/trading/components/admin-panel/admin-panel.component';
 import { AdminGuardService } from './services/admin-guard.service';
 import { GuestGuardService } from './services/guest-guard.service';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'adminPanel',
     component: AdminPanelComponent,
     canActivate: [AdminGuardService]
+  },
+  {
+    path: '',
+    component: HomePageComponent
   },
   {
     path: '**',

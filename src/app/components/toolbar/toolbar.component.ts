@@ -12,6 +12,7 @@ export class ToolbarComponent implements OnInit {
 
   smallScreen: boolean;
   isAdmin: boolean;
+  isGuest: boolean;
 
   constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
   }
@@ -23,6 +24,12 @@ export class ToolbarComponent implements OnInit {
 
     this.authService.isAdmin.subscribe(isAdmin => {
       this.isAdmin = isAdmin;
+
+      this.isGuest = (!this.authService.isUser.value && !isAdmin);
+    });
+
+    this.authService.isUser.subscribe(isUser => {
+      this.isGuest = (!this.authService.isAdmin.value && !isUser);
     });
   }
 

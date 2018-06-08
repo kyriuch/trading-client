@@ -1,8 +1,8 @@
 <mat-toolbar color="primary" class="shadow">
   <mat-toolbar-row>
-    <span>Platforma aukcyjna</span>
+    <span routerLink="" style="cursor: pointer;">Platforma aukcyjna</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/login">
+    <button mat-button routerLink="/login" *ngIf="isGuest">
       <mat-icon>account_circle</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Zaloguj się</span>
     </button>

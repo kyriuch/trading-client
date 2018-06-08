@@ -7,6 +7,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../profile/services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
   providers: [
+    AuthService,
+    ApiService
   ],
   declarations: []
 })
