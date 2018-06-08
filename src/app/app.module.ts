@@ -13,12 +13,14 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthService } from './modules/profile/services/auth.service';
+import { OffersListComponent } from './modules/trading/components/offers-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    OffersListComponent
   ],
   imports: [
     ProfileModule,
