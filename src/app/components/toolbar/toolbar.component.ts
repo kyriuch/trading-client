@@ -42,6 +42,19 @@ export class ToolbarComponent implements OnInit {
       });
 
       this.isLoaded = true;
+    }, err => {
+      this.isAdmin = this.authService.isAdmin.value;
+      this.isUser = this.authService.isUser.value;
+
+      this.authService.isAdmin.subscribe(isAdmin => {
+        this.isAdmin = isAdmin;
+      });
+
+      this.authService.isUser.subscribe(isUser => {
+        this.isUser = isUser;
+      });
+
+      this.isLoaded = true;
     });
   }
 

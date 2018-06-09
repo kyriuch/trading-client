@@ -1,0 +1,17 @@
+.slot {
+    background-color: #FDFDFD;
+    width: 56px;
+    height: 56px;
+    margin-top: 10px;
+    background-size: cover;
+}
+
+.slot:hover {
+    cursor: pointer;
+}
+
+.border {
+    -webkit-box-shadow: inset 0px 0px 0px 2px #00A3FF;
+    -moz-box-shadow: inset 0px 0px 0px 2px #00A3FF;
+    box-shadow: inset 0px 0px 0px 2px #00A3FF;
+}

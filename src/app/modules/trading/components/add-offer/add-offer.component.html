@@ -1,3 +1,41 @@
-<p>
-  add-offer works!
-</p>
+<div style="width: 100%; margin-top: 200px; margin-bottom: 50px; position: absolute;" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="100px">
+  <mat-card style="width: 70%;">
+    <mat-card-title>
+      Dodaj ofertę
+    </mat-card-title>
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="50%" style="padding: 20px;" fxLayoutGap="5px">
+          <p fxFlex="grow">
+            Posiadam
+          </p>
+          <app-offer-slot *ngFor="let item of ownedItems" [selected]="item.selected" [imageString]="item.itemImage" (click)="itemClicked(item, 1);">
+
+          </app-offer-slot>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="50%" style="padding: 20px;">
+          <p fxFlex="grow">
+            Chcę
+          </p>
+          <app-offer-slot *ngFor="let item of wantedItems" [selected]="item.selected" [imageString]="item.itemImage" (click)="itemClicked(item, 2);">
+
+          </app-offer-slot>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="addOffer();">
+        Dodaj ofertę
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card style="width: 70%;">
+    <mat-card-content>
+      <div fxLayout="row wrap" style="padding: 20px;" fxLayoutAlign="start start" fxLayoutGap="5px">
+        <app-offer-slot *ngFor="let item of itemsToPick" [selected]="false" [imageString]="item.itemImage" (click)="pickItem(item);">
+
+        </app-offer-slot>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

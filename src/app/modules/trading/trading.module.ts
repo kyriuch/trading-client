@@ -6,6 +6,7 @@ import { SingleOfferComponent } from './components/single-offer/single-offer.com
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ItemsService } from './services/items.service';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
+import { OfferSlotComponent } from './components/offer-slot/offer-slot.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AddOfferComponent } from './components/add-offer/add-offer.component';
     OffersListComponent,
     SingleOfferComponent,
     AdminPanelComponent,
-    AddOfferComponent
+    AddOfferComponent,
+    OfferSlotComponent
   ],
   providers: [ItemsService]
 })
