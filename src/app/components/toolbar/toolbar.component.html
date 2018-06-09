@@ -2,13 +2,21 @@
   <mat-toolbar-row>
     <span routerLink="" style="cursor: pointer;">Platforma aukcyjna</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/login" *ngIf="isGuest">
+    <button mat-button routerLink="/login" *ngIf="!isAdmin && !isUser && isLoaded">
       <mat-icon>account_circle</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Zaloguj się</span>
     </button>
-    <button mat-button routerLink="/adminPanel" *ngIf="isAdmin">
+    <button mat-button routerLink="/adminPanel" *ngIf="isAdmin && isLoaded">
       <mat-icon>dashboard</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Panel administracyjny</span>
+    </button>
+    <button mat-button routerLink="/addOffer" *ngIf="isUser && isLoaded">
+      <mat-icon>create</mat-icon>
+      <span class="mat-button" *ngIf="!smallScreen">Dodaj ofertę</span>
+    </button>
+    <button mat-button (click)="signOut();" *ngIf="isUser && isLoaded">
+      <mat-icon>exit_to_app</mat-icon>
+      <span class="mat-button" *ngIf="!smallScreen">Wyloguj</span>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

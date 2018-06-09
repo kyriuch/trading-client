@@ -1,3 +1,45 @@
-<p>
-  offers-list works!
-</p>
+<mat-card style="width: 100%;">
+  <mat-card-title style="margin-bottom: 50px;">Filtry</mat-card-title>
+  <mat-card-content>
+    <form fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="5%">
+      <mat-form-field style="min-width: 45%; max-width: 45%;">
+        <input type="text" placeholder="Wybierz przedmiot" aria-label="Przedmiot" matInput [formControl]="itemsCtrl" [matAutocomplete]="itemsComplete">
+        <mat-autocomplete #itemsComplete="matAutocomplete" (closed)="checkItem();">
+          <mat-option *ngFor="let item of filteredItems | async" [value]="item.itemName ">
+            {{ item.itemName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field style="min-width: 45%; max-width: 45%; ">
+        <input type="text " placeholder="Wybierz certyfikat " aria-label="Certyfikat" matInput [formControl]="certificatesCtrl"
+         [matAutocomplete]="certsComplete">
+        <mat-autocomplete #certsComplete="matAutocomplete" (closed)="checkCertificate();">
+          <mat-option *ngFor="let cert of filteredCertificates | async" [value]="cert.certificateName">
+            {{ cert.certificateName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field style="padding-top: 50px; min-width: 45%; max-width: 45%;">
+        <input type="text " placeholder="Wybierz kolor " aria-label="Kolor " matInput [formControl]="paintsCtrl" 
+        [matAutocomplete]="paintsComplete">
+        <mat-autocomplete #paintsComplete="matAutocomplete" (closed)="checkPaint();">
+          <mat-option *ngFor="let paint of filteredPaints | async " [value]="paint.paintName">
+            {{ paint.paintName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field style="padding-top: 50px; min-width: 45%; max-width: 45%; ">
+        <mat-select placeholder="Wybierz typ szukania" [(value)]="pickedSearch">
+          <mat-option *ngFor="let type of searchTypesString" value="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="filter" style="margin-top: 30px; width: 100%" color="primary">
+      Filtruj
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,4 +1,6 @@
 import { PaintDto } from './paint.dto';
+import { FiltersItemDto } from './filters-item.dto';
+import { CertificateDto } from './certificate.dto';
 
 export enum SearchType {
     wantItem,
@@ -6,14 +8,8 @@ export enum SearchType {
 }
 
 export interface FiltersDto {
-    items: {
-        id: number,
-        itemName: string
-    }[];
-    certificates: {
-        id: number,
-        certificateName: string
-    }[];
+    items: FiltersItemDto[];
+    certificates: CertificateDto[];
     paints: PaintDto[];
-    searchType: SearchType[];
+    searchTypes: SearchType[];
 }

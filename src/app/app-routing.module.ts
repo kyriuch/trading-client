@@ -6,6 +6,8 @@ import { AdminPanelComponent } from './modules/trading/components/admin-panel/ad
 import { AdminGuardService } from './services/admin-guard.service';
 import { GuestGuardService } from './services/guest-guard.service';
 import { HomePageComponent } from './components/home-page/home-page.component';
+import { AddOfferComponent } from './modules/trading/components/add-offer/add-offer.component';
+import { UserGuardService } from './services/user-guard.service';
 
 const routes: Routes = [
   {
@@ -22,6 +24,11 @@ const routes: Routes = [
     path: 'adminPanel',
     component: AdminPanelComponent,
     canActivate: [AdminGuardService]
+  },
+  {
+    path: 'addOffer',
+    component: AddOfferComponent,
+    canActivate: [UserGuardService]
   },
   {
     path: '',

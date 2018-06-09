@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs/observable/of';
 import { ApiService } from '../../../services/api.service';
 import { UserLogin } from '../models/user-login.dto';
 import { UserRegister } from '../models/user-register.dto';
@@ -13,20 +14,45 @@ export class AuthService {
 
   isUser: BehaviorSubject<boolean>;
   isAdmin: BehaviorSubject<boolean>;
+  authUser: AuthUser;
   private tokenKey = 'xigofe08';
   private token: string;
+  private initialized = false;
 
   constructor(private apiService: ApiService) {
-    this.isUser = new BehaviorSubject<boolean>(false);
-    this.isAdmin = new BehaviorSubject<boolean>(false);
   }
 
-  init(): void {
+  init(): Observable<AuthUser> {
+    this.isUser = new BehaviorSubject(false);
+    this.isAdmin = new BehaviorSubject(false);
     const currentToken = window.localStorage.getItem(this.tokenKey);
 
     if (currentToken !== null) {
-      this.checkToken(currentToken);
+      return this.checkToken(currentToken);
     }
+
+    return of(undefined);
+  }
+
+  getAuthUser(): Observable<AuthUser> {
+    if (this.authUser) {
+      return of(this.authUser);
+    }
+
+    const currentToken = window.localStorage.getItem(this.tokenKey);
+
+    if (!currentToken) {
+      return of(undefined);
+    }
+
+    return this.apiService.post<AuthUser>(
+      {
+        apiEndpoint: 'authentication/checktoken',
+        requestBody: {
+          token: currentToken
+        }
+      }
+    );
   }
 
   registerUser(user: UserRegister): Observable<AuthUser> {
@@ -49,12 +75,22 @@ export class AuthService {
   }
 
   signOut(): void {
+    this.authUser = null;
     window.localStorage.removeItem(this.tokenKey);
     this.isUser.next(false);
     this.isAdmin.next(false);
   }
 
   authenticate(authUser: AuthUser) {
+    if (!authUser) {
+      return;
+    }
+
+    if (typeof (authUser.token) !== 'string') {
+      authUser.token = authUser.token['token'];
+    }
+
+    this.authUser = authUser;
     window.localStorage.setItem(this.tokenKey, authUser.token);
 
     this.token = authUser.token;
@@ -74,20 +110,14 @@ export class AuthService {
     return this.token;
   }
 
-  checkToken(token: string): void {
-    this.apiService.post<AuthUser>(
+  checkToken(token: string): Observable<AuthUser> {
+    return this.apiService.post<AuthUser>(
       {
         apiEndpoint: 'authentication/checktoken',
         requestBody: {
           token: token
         }
       }
-    ).subscribe((data) => {
-      this.authenticate(data);
-    }, (err: HttpErrorResponse) => {
-      console.log(err.message);
-    });
+    );
   }
-
-
 }
