@@ -12,16 +12,50 @@
       </mat-form-field>
       <mat-form-field style="min-width: 45%; max-width: 45%; ">
         <mat-select placeholder="Wybierz typ szukania" [(value)]="pickedSearch">
-          <mat-option *ngFor="let type of searchTypesString" value="type">
-            {{ type }}
+          <mat-option *ngFor="let myType of searchTypesString" value="{{myType}}">
+            {{ myType }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="filter" style="margin-top: 30px; width: 100%" color="primary">
+    <button mat-raised-button (click)="filter();" style="margin-top: 30px; width: 100%" color="primary">
       Filtruj
     </button>
   </mat-card-actions>
 </mat-card>
+
+<div *ngIf="currentOffers !== undefined && itemModels !== undefined" style="width: 100%" fxLayout="column" fxLayoutGap="50px">
+  <mat-paginator [length]="currentOffers.totalCount" [pageSize]="5" [pageIndex]="currentPage" hidePageSize="true" (page)="pageChanged($event);">
+  </mat-paginator>
+  <mat-card style="width: 100%;" *ngFor="let offer of currentOffers.offers">
+    <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="50%" style="padding: 20px;" fxLayoutGap="5px">
+          <p fxFlex="grow">
+            Posiada
+          </p>
+          <app-offer-slot *ngFor="let item of offer.haveItemIds" [selected]="false" [imageString]="findImage(item)">
+
+          </app-offer-slot>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex="50%" style="padding: 20px;">
+          <p fxFlex="grow">
+            Chce
+          </p>
+          <app-offer-slot *ngFor="let item of offer.wantItemIds" [selected]="false" [imageString]="findImage(item)">
+
+          </app-offer-slot>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a target="_blank" href="{{offer.profileUrl}}">
+        <button mat-raised-button color="primary">
+          Odwiedź profil STEAM
+        </button>
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</div>

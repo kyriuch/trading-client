@@ -8,3 +8,8 @@ export interface ApiPostModel {
 export interface ApiGetModel {
     apiEndpoint: string;
 }
+
+export interface ApiDeleteModel {
+    apiEndpoint: string;
+    id: number;
+}

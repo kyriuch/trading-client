@@ -10,6 +10,14 @@
       <mat-icon>dashboard</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Panel administracyjny</span>
     </button>
+    <button mat-button routerLink="" *ngIf="isLoaded">
+      <mat-icon>view_list</mat-icon>
+      <span class="mat-button" *ngIf="!smallScreen">Oferty</span>
+    </button>
+    <button mat-button routerLink="/myOffers" *ngIf="isUser && isLoaded">
+      <mat-icon>list</mat-icon>
+      <span class="mat-button" *ngIf="!smallScreen">Moje oferty</span>
+    </button>
     <button mat-button routerLink="/addOffer" *ngIf="isUser && isLoaded">
       <mat-icon>create</mat-icon>
       <span class="mat-button" *ngIf="!smallScreen">Dodaj ofertę</span>

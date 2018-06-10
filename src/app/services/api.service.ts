@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiPostModel, ApiGetModel } from '../models/api-models';
+import { ApiPostModel, ApiGetModel, ApiDeleteModel } from '../models/api-models';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,19 @@ export class ApiService {
     return this.httpClient.get<T>(this.apiUrl + apiModel.apiEndpoint, {
       headers: httpHeaders
     });
+  }
+
+  delete<T>(apiModel: ApiDeleteModel, shouldAttachToken = false, token = null): Observable<T> {
+    let httpHeaders = this.generateHeaders();
+
+    if (shouldAttachToken) {
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`);
+    }
+
+    return this.httpClient.delete<T>(this.apiUrl + apiModel.apiEndpoint + '/' + apiModel.id,
+      {
+        headers: httpHeaders
+      });
   }
 
   private generateHeaders(): HttpHeaders {

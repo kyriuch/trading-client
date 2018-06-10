@@ -5,6 +5,11 @@ import { FiltersItemDto } from '../../models/filters-item.dto';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ItemModel } from '../../models/item.model';
+import { ItemsService } from '../../services/items.service';
+import { AuthService } from '../../../profile/services/auth.service';
+import { RecentOffers } from '../../models/recent-offers';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-offers-list',
@@ -18,14 +23,24 @@ export class OffersListComponent implements OnInit {
   items: FiltersItemDto[];
   searchTypesString: string[];
   pickedSearch: string;
+  itemModels: ItemModel[];
+  currentOffers: RecentOffers;
+  currentPage: number;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private itemsService: ItemsService,
+    private auth: AuthService) { }
 
   ngOnInit() {
+    this.currentPage = 0;
+
     this.searchTypesString = [
+      'Jakikolwiek',
       'Chcę ten przedmiot',
       'Sprzedam ten przedmiot'
     ];
+
+    this.pickedSearch = 'Jakikolwiek';
+    this.itemsCtrl.setValue('Jakikolwiek');
 
     this.apiService.get<FiltersDto>(
       {
@@ -44,6 +59,15 @@ export class OffersListComponent implements OnInit {
         map(item => item ? this.items.filter(x => x.itemName.indexOf(item) >= 0) : this.items.slice())
       );
     });
+
+    this.apiService.get<ItemModel[]>({
+      apiEndpoint: 'items/items'
+    }, true, this.auth.getToken())
+      .subscribe(data => {
+        this.itemModels = data;
+      });
+
+    this.fetchOffers();
   }
 
   checkItem(): void {
@@ -54,6 +78,38 @@ export class OffersListComponent implements OnInit {
     } else {
       this.itemsCtrl.setValue('Jakikolwiek');
     }
+  }
 
+  findImage(item: number): string {
+    if (item === -1) {
+      return null;
+    }
+
+    return this.itemModels.find(x => x.id === item).itemImage;
+  }
+
+  fetchOffers() {
+    const body = {
+      itemId: this.itemsCtrl.value === 'Jakikolwiek' ? -1 : this.itemModels.find(x => x.itemName === this.itemsCtrl.value).id,
+        page: this.currentPage,
+        searchType: this.searchTypesString.indexOf(this.pickedSearch)
+    };
+
+    this.apiService.post<RecentOffers>({
+      apiEndpoint: 'offers/recentoffers',
+      requestBody: body
+    }).subscribe(data => {
+      this.currentOffers = data;
+    });
+  }
+
+  filter() {
+    this.currentPage = 0;
+    this.fetchOffers();
+  }
+
+  pageChanged(event: PageEvent) {
+    this.currentPage = event.pageIndex;
+    this.fetchOffers();
   }
 }

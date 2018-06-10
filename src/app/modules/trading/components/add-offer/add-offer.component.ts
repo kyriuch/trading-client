@@ -5,6 +5,7 @@ import { AuthService } from '../../../profile/services/auth.service';
 import { ItemModel } from '../../models/item.model';
 import { ItemsService } from '../../services/items.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-offer',
@@ -103,6 +104,8 @@ export class AddOfferComponent implements OnInit {
       wantItemsIds: this.wantedItems.map(item => item.itemId)
     }).subscribe(data => {
       this.router.navigateByUrl('/');
-    }, err => console.log);
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+    });
   }
 }

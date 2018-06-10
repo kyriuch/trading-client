@@ -8,6 +8,7 @@ import { GuestGuardService } from './services/guest-guard.service';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { AddOfferComponent } from './modules/trading/components/add-offer/add-offer.component';
 import { UserGuardService } from './services/user-guard.service';
+import { MyOffersComponent } from './modules/trading/components/my-offers/my-offers.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'addOffer',
     component: AddOfferComponent,
+    canActivate: [UserGuardService]
+  },
+  {
+    path: 'myOffers',
+    component: MyOffersComponent,
     canActivate: [UserGuardService]
   },
   {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../profile/services/auth.service';
 import { Observable } from 'rxjs';
-import { OfferDto } from '../models/offert.dto';
+import { OfferDto } from '../models/offer.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ItemsService {
         requestBody: offerDto
       },
       true,
-      window.localStorage.getItem('xigofe08')
+      this.auth.getToken()
     );
   }
 
