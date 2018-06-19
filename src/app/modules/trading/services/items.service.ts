@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { AuthService } from '../../profile/services/auth.service';
-import { Observable } from 'rxjs';
 import { OfferDto } from '../models/offer.dto';
 
 @Injectable({
